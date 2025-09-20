@@ -1,0 +1,62 @@
+--- START OF FILE ahorro.html ---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Head sin cambios... -->
+</head>
+<body>
+    <div class="container">
+        <!-- Contenido HTML sin cambios... -->
+    </div>
+
+    <!-- Modal para depósito -->
+    <div class="modal" id="depositModal">
+        <!-- ... -->
+    </div>
+
+    <!-- Modal para retiro (añadido para la simulación) -->
+    <div class="modal" id="withdrawModal">
+       <!-- ... -->
+    </div>
+
+    <script>
+        /**
+         * Simula una transferencia desde la cuenta principal a la cuenta de ahorros.
+         */
+        function depositToSavings(amount) {
+            if (!amount || isNaN(amount) || amount <= 0) {
+                alert("Por favor, introduce un monto válido.");
+                return;
+            }
+            console.log(`%c[FRONTEND] Solicitando depositar ${amount} a la cuenta de ahorros...`, 'color: blue; font-weight: bold;');
+            alert(`Depositando ${amount}... Esto es una transacción interna usando la API de Open Payments. Revisa la consola.`);
+            
+            // SIMULACIÓN DE API: Es el mismo flujo de `realizarPago`, pero entre cuentas del mismo usuario.
+            console.log("%c[API BACKEND] Inicia el flujo 'realizarPago()' para un depósito interno...", 'color: green;');
+            console.log("[API BACKEND] Billetera Remitente: cuenta_principal_usuario");
+            console.log("[API BACKEND] Billetera Receptora: cuenta_ahorros_usuario");
+            // ... (simulación del flujo de pago) ...
+            setTimeout(() => {
+                console.log("[API BACKEND] ¡Depósito completado!");
+                alert("¡Depósito realizado con éxito!");
+                // Aquí se actualizaría el UI con el nuevo saldo.
+            }, 2000);
+        }
+
+        // --- Resto de funciones JS para la UI (abrir/cerrar modales, etc.) ---
+        function openDepositModal() { 
+            const amount = prompt("¿Cuánto quieres depositar en tus ahorros?");
+            depositToSavings(parseFloat(amount));
+        }
+        function openWithdrawModal() { 
+            const amount = prompt("¿Cuánto quieres retirar de tus ahorros?");
+            // Lógica similar a depositToSavings pero a la inversa
+            alert(`Retirando ${amount}...`);
+        }
+        function toggleAutomaticSaving() { /* ... */ }
+        function openPlanModal() { /* ... */ }
+        // ...etc
+    </script>
+</body>
+</html>
+--- END OF FILE ahorro.html ---

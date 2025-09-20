@@ -1,0 +1,111 @@
+--- START OF FILE index.html ---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Cash - Demo</title>
+    <style>
+        /* Estilos sin cambios... */
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="phone-screen">
+            <!-- Contenido HTML sin cambios... -->
+            <div class="quick-actions">
+                <button class="action-btn" onclick="sendMoney()">
+                    <div class="icon">💸</div>
+                    <div class="label">Enviar</div>
+                </button>
+                <button class="action-btn" onclick="receiveMoney()">
+                    <div class="icon">📥</div>
+                    <div class="label">Recibir</div>
+                </button>
+                <button class="action-btn" onclick="showModal('Pagar en comercios afiliados y ganar cashback')">
+                    <div class="icon">💳</div>
+                    <div class="label">Pagar</div>
+                </button>
+                <button class="action-btn" onclick="showModal('Establecer metas de ahorro gamificadas')">
+                    <div class="icon">🎯</div>
+                    <div class="label">Ahorrar</div>
+                </button>
+            </div>
+            <!-- Resto del HTML sin cambios... -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <!-- ... -->
+    </div>
+
+    <script>
+        function showModal(text) {
+            document.getElementById('modal-text').textContent = text;
+            document.getElementById('modal-title').textContent = 'Ghost Cash';
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        /**
+         * Simula una llamada a la API de backend para enviar dinero.
+         */
+        function sendMoney() {
+            const receptor = prompt("¿A qué dirección de billetera quieres enviar?", "$wallet.ejemplo.com/juan");
+            const monto = prompt("¿Qué monto quieres enviar?", "500");
+
+            if (!receptor || !monto) {
+                alert("Operación cancelada.");
+                return;
+            }
+
+            console.log(`%c[FRONTEND] Solicitando al backend realizar un pago de ${monto} a ${receptor}...`, 'color: blue; font-weight: bold;');
+            showModal(`Enviando ${monto} a ${receptor}... Abre la consola (F12) para ver el flujo de la API.`);
+            
+            // SIMULACIÓN DEL FLUJO DE LA API (esto ocurriría en el servidor)
+            console.log("%c[API BACKEND] Inicia el flujo 'realizarPago()' de la API...", 'color: green;');
+            setTimeout(() => console.log("[API BACKEND] 1. Cliente autenticado."), 500);
+            setTimeout(() => console.log("[API BACKEND] 2. Concesión de pago entrante para el receptor obtenida."), 1000);
+            setTimeout(() => console.log("[API BACKEND] 3. Pago entrante creado."), 1500);
+            setTimeout(() => console.log("[API BACKEND] 4. Cotización para el remitente creada."), 2000);
+            setTimeout(() => console.log("[API BACKEND] 5. Concesión de pago saliente obtenida."), 2500);
+            setTimeout(() => console.log("[API BACKEND] 6. Esperando confirmación del usuario... (Simulado)"), 3000);
+            setTimeout(() => {
+                console.log("[API BACKEND] 7. ¡PAGO REALIZADO CON ÉXITO!");
+                alert("¡Pago enviado con éxito!");
+                closeModal();
+            }, 3500);
+        }
+
+        /**
+         * Simula la creación de una solicitud de pago.
+         */
+        function receiveMoney() {
+            const monto = prompt("¿Qué monto quieres recibir?", "100");
+            if (!monto) {
+                alert("Operación cancelada.");
+                return;
+            }
+
+            console.log(`%c[FRONTEND] Solicitando al backend crear una solicitud de pago por ${monto}...`, 'color: blue; font-weight: bold;');
+            showModal(`Creando solicitud de pago... Abre la consola (F12) para ver el flujo de la API.`);
+
+            // SIMULACIÓN DEL FLUJO DE LA API
+            console.log("%c[API BACKEND] Inicia el flujo 'crearSolicitudDePago()' de la API...", 'color: green;');
+            setTimeout(() => {
+                const paymentId = `https://api.ghost.cash/pay/${Math.random().toString(36).substr(2, 9)}`;
+                console.log(`[API BACKEND] Solicitud de pago creada: ${paymentId}`);
+                alert(`Solicitud de pago creada. Comparte este enlace: ${paymentId}`);
+                closeModal();
+            }, 1500);
+        }
+        
+        // El resto del script original...
+    </script>
+</body>
+</html>
+--- END OF FILE index.html ---

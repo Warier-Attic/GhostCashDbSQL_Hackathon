@@ -1,0 +1,116 @@
+--- START OF FILE escaneo.html ---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Head sin cambios... -->
+</head>
+<body>
+    <div class="container">
+        <!-- Contenido HTML sin cambios... -->
+        <div class="ai-result" id="aiAnalysisResult">
+            <!-- ... -->
+            <div class="ai-result-action">
+                <button onclick="splitBill()"><i class="fas fa-users" style="margin-right: 5px;"></i>Dividir y Solicitar Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Simula la división de una cuenta y la creación de solicitudes de pago.
+         */
+        function splitBill() {
+            const numFriends = parseInt(prompt("¿Entre cuántas personas quieres dividir la cuenta?", "2"));
+            if (!numFriends || numFriends <= 0) return;
+
+            console.log(`%c[FRONTEND] Solicitando al backend crear ${numFriends} solicitudes de pago...`, 'color: blue; font-weight: bold;');
+            alert(`Creando solicitudes de pago... Revisa la consola.`);
+
+            // SIMULACIÓN DE API: Se llama a `crearSolicitudDePago` en bucle.
+            for (let i = 1; i <= numFriends; i++) {
+                setTimeout(() => {
+                    const paymentId = `https://api.ghost.cash/pay/${Math.random().toString(36).substr(2, 9)}`;
+                    console.log(`%c[API BACKEND] Solicitud ${i} creada: ${paymentId}`, 'color: green;');
+                }, i * 1000);
+            }
+            setTimeout(() => alert("Enlaces de pago generados para cada persona."), (numFriends + 1) * 1000);
+        }
+
+        // JS original para la funcionalidad de la UI
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.ai-summary-button').addEventListener('click', () => {
+                document.getElementById('aiAdvicePlaceholder').style.display = 'none';
+                document.getElementById('aiAnalysisResult').style.display = 'flex';
+            });
+            document.getElementById('receiptFileInput').addEventListener('change', (event) => {
+                if (event.target.files.length > 0) {
+                    document.getElementById('aiAdvicePlaceholder').style.display = 'none';
+                    document.getElementById('aiAnalysisResult').style.display = 'flex';
+                    alert(`Recibo "${event.target.files[0].name}" listo para analizar.`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+--- END OF FILE escaneo.html ---```
+
+***
+
+### `login.html` (Pantalla de Inicio de Sesión)
+El formulario ahora simula el proceso de autenticación que precede a la inicialización de la API.
+
+```html
+--- START OF FILE login.html ---
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Head y Style sin cambios... -->
+</head>
+<body>
+  <div class="login-root">
+    <!-- Contenido HTML sin cambios... -->
+    <div class="formbg-inner padding-horizontal--48">
+      <span class="padding-bottom--15">Inicia sesión en tu cuenta</span>
+      <form id="stripe-login">
+        <!-- Campos del formulario... -->
+        <div class="field padding-bottom--24">
+          <input type="submit" name="submit" value="Continue">
+        </div>
+      </form>
+    </div>
+    <!-- ... -->
+  </div>
+  <script>
+    document.getElementById('stripe-login').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevenir el envío real del formulario
+        const email = this.querySelector('input[name="email"]').value;
+        
+        if (!email) {
+            alert("Por favor, introduce tu email.");
+            return;
+        }
+
+        console.log(`%c[FRONTEND] Intentando iniciar sesión como ${email}...`, 'color: blue; font-weight: bold;');
+        alert("Iniciando sesión... Revisa la consola para ver el flujo.");
+
+        // SIMULACIÓN DE AUTENTICACIÓN Y CARGA DE API
+        console.log("%c[API BACKEND] 1. El usuario se autentica correctamente.", 'color: green;');
+        console.log("%c[API BACKEND] 2. El servidor busca las credenciales del usuario (URL de billetera, ID de clave).", 'color: green;');
+        setTimeout(() => {
+             console.log("%c[API BACKEND] 3. Se inicializa el cliente de Open Payments con los datos del usuario.", 'color: green;');
+             console.log(`
+                createAuthenticatedClient({
+                    walletAddressUrl: "URL_DE_BILLETERA_DE_${email}",
+                    privateKey: 'private.key', // La clave privada se carga de forma segura en el servidor
+                    keyId: "KEY_ID_DE_${email}",
+                });
+             `);
+             alert("¡Inicio de sesión exitoso! El cliente de la API está listo en el backend.");
+             // En una aplicación real, aquí se redirigiría al usuario a index.html
+        }, 1500);
+    });
+  </script>
+</body>
+</html>
+--- END OF FILE login.html ---
